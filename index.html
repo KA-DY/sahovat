@@ -101,6 +101,58 @@
   .contact-btns { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 40px; }
   .contact-note { font-size: 12px; color: var(--light); max-width: 480px; margin: 0 auto; line-height: 1.9; }
 
+  /* SOON */
+  .soon {
+    background: var(--warm);
+    padding: 92px 60px;
+    border-top: 1px solid rgba(196,149,90,0.12);
+  }
+  .soon-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+  .soon-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .soon-tag::before { content: ''; display: block; width: 30px; height: 1px; background: var(--gold); }
+  .soon-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(34px, 4vw, 54px); font-weight: 300; line-height: 1.1; margin-bottom: 18px; }
+  .soon-title em { font-style: italic; color: var(--gold); }
+  .soon-sub { font-size: 15px; color: var(--mid); line-height: 1.9; margin: 0 auto 32px; max-width: 640px; }
+  .soon-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    display: grid;
+    gap: 14px;
+    max-width: 720px;
+  }
+  .soon-list li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 16px 18px;
+    background: rgba(196,149,90,0.06);
+    border: 1px solid rgba(196,149,90,0.18);
+    border-radius: 14px;
+    color: var(--mid);
+    font-size: 14px;
+    line-height: 1.8;
+    text-align: left;
+  }
+  .soon-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    color: rgba(196,149,90,0.35);
+    line-height: 1;
+    width: 56px;
+    flex-shrink: 0;
+  }
+
   /* FOUNDER */
   .founder { background: var(--cream); display: flex; align-items: center; gap: 48px; padding: 72px 60px; border-top: 1px solid rgba(196,149,90,0.12); }
   .founder-avatar { width: 80px; height: 80px; border-radius: 50%; background: rgba(196,149,90,0.12); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 32px; color: var(--gold); flex-shrink: 0; }
@@ -126,6 +178,7 @@
     .what-grid, .principles-inner, .tips-grid { grid-template-columns: 1fr; }
     .principles-inner { gap: 40px; }
     .founder { flex-direction: column; padding: 56px 24px; gap: 20px; }
+    .soon { padding: 64px 24px; }
     footer { padding: 32px 24px; flex-direction: column; text-align: center; }
     .contact-btns { flex-direction: column; align-items: center; }
   }
@@ -268,6 +321,19 @@
     <p>Я запускаю эту инициативу потому что верю: помогать можно начать честно — даже в одиночку и с нуля. SAHOVAT — это не организация и не фонд. Это желание создать пространство где помощь людям понятна, прозрачна и надёжна.</p>
   </div>
 </div>
+
+<section class="soon" aria-label="Скоро появится">
+  <div class="soon-inner">
+    <div class="soon-tag">Скоро</div>
+    <h2 class="soon-title">Появится <em>в ближайшее время</em></h2>
+    <p class="soon-sub">В ближайшее время появятся:</p>
+    <ul class="soon-list">
+      <li><span class="soon-num">01</span>Список проверенных фондов</li>
+      <li><span class="soon-num">02</span>Статьи о безопасной помощи</li>
+      <li><span class="soon-num">03</span>Первый отчёт об акции</li>
+    </ul>
+  </div>
+</section>
 
 <footer>
   <div class="logo">SAH<span>O</span>VAT</div>

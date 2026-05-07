@@ -172,15 +172,119 @@
   .hero p       { animation-delay: 0.42s; }
   .hero-actions { animation-delay: 0.56s; }
 
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* BACK TO TOP */
+  .back-to-top {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid rgba(196,149,90,0.45);
+    background: rgba(247,243,238,0.95);
+    color: var(--gold);
+    font-size: 18px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 8px 22px rgba(28,24,20,0.12);
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+    z-index: 140;
+  }
+  .back-to-top:hover {
+    background: var(--gold);
+    color: var(--white);
+  }
+  .back-to-top.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
   @media (max-width: 768px) {
-    nav { padding: 18px 24px; } nav ul { display: none; }
-    section { padding: 64px 24px; } .hero { padding: 100px 24px 60px; }
+    nav { padding: 16px 20px; gap: 12px; }
+    nav ul { display: none; }
+    .logo { font-size: 24px; letter-spacing: 3px; }
+    .nav-btn { padding: 10px 16px; font-size: 11px; letter-spacing: 1.5px; }
+    section { padding: 60px 20px; }
+    .hero { min-height: auto; padding: 96px 20px 56px; }
+    .hero-content { max-width: 100%; }
+    .hero p { font-size: 15px; line-height: 1.8; max-width: 100%; }
+    .hero-actions { width: 100%; gap: 12px; }
+    .hero-actions a { flex: 1 1 100%; text-align: center; }
+    .btn-primary, .btn-outline { width: 100%; max-width: 320px; }
+    .what-title, .howhelp-title, .contact h2, .soon-title, .principles h2 { line-height: 1.15; }
+    .what-item, .tip-card { padding: 28px 24px; }
     .what-grid, .principles-inner, .tips-grid { grid-template-columns: 1fr; }
     .principles-inner { gap: 40px; }
+    .principle-item { gap: 14px; }
     .founder { flex-direction: column; padding: 56px 24px; gap: 20px; }
+    .founder-text { text-align: center; }
+    .founder-text p { max-width: 100%; }
     .soon { padding: 64px 24px; }
+    .soon-list li { align-items: center; }
+    .soon-num { width: 42px; }
     footer { padding: 32px 24px; flex-direction: column; text-align: center; }
     .contact-btns { flex-direction: column; align-items: center; }
+    .back-to-top {
+      right: 16px;
+      bottom: 16px;
+      width: 44px;
+      height: 44px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    nav { padding: 14px 14px; }
+    .logo { font-size: 22px; letter-spacing: 2px; }
+    .nav-btn { padding: 10px 12px; font-size: 10px; }
+    section { padding: 52px 14px; }
+    .hero { padding: 88px 14px 50px; }
+    .launch-badge { width: 100%; justify-content: center; text-align: center; }
+    .hero-tag { letter-spacing: 2px; }
+    .hero h1 { font-size: clamp(40px, 11vw, 50px); }
+    .hero p { font-size: 14px; }
+    .btn-primary, .btn-outline { max-width: 100%; padding-left: 22px; padding-right: 22px; }
+    .what-item, .tip-card { padding: 24px 18px; }
+    .principle-item h4, .tip-card h4, .what-item h3 { font-size: 15px; }
+    .principle-item p, .tip-card p, .what-item p, .contact > p, .soon-sub, .principles-desc { font-size: 14px; line-height: 1.75; }
+    .founder { padding: 48px 14px; }
+    .soon { padding: 56px 14px; }
+    footer { padding: 28px 14px; }
+    .back-to-top {
+      right: 12px;
+      bottom: 12px;
+      width: 42px;
+      height: 42px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal,
+    .reveal.is-visible,
+    .back-to-top {
+      transition: none;
+      transform: none;
+      opacity: 1;
+    }
   }
 </style>
 </head>
@@ -340,6 +444,39 @@
   <p>Благотворительная инициатива · Коканд, Узбекистан</p>
   <p>© 2026 SAHOVAT · Проект на стадии запуска</p>
 </footer>
+
+<button class="back-to-top" id="backToTop" type="button" aria-label="Наверх">↑</button>
+
+<script>
+  const revealTargets = document.querySelectorAll('.what, .principles, .howhelp, .contact, .founder, .soon');
+  revealTargets.forEach((el) => el.classList.add('reveal'));
+
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+
+  revealTargets.forEach((el) => revealObserver.observe(el));
+
+  const backToTop = document.getElementById('backToTop');
+  const toggleBackToTop = () => {
+    if (window.scrollY > 260) {
+      backToTop.classList.add('is-visible');
+    } else {
+      backToTop.classList.remove('is-visible');
+    }
+  };
+
+  window.addEventListener('scroll', toggleBackToTop, { passive: true });
+  toggleBackToTop();
+
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
 
 </body>
 </html>
